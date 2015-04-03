@@ -1,0 +1,177 @@
+#Monitoring {
+    display:block;
+    position:relative;
+    /*background:#fff;*/
+    border-radius:3px;
+    color:#535353;
+    font-family:Arial, Tahoma, Helvetica;
+    font-size:13px;
+    margin:auto;
+    padding:1px 0 25px;
+    width:215px
+}
+/* Стили для каждого сервера */
+.OneServer {
+    margin:21px auto
+}
+.OneServer .ServInfo {
+    height:16px;
+    padding:0 2px 2px 0
+}
+.OneServer .ServInfo .ServName {
+	position:relative;
+    float:left;
+	padding:0 9px 0 0
+}
+.OneServer .ServInfo .ServOnline {
+	position:relative;
+    color:#303030;
+    float:right;
+	padding:0 0 0 9px;
+	max-width:48%
+}
+.OneServer .BarCont {
+    background:#e1e1e1;
+    border-radius:1em;
+    height:6px;
+	width:100%;
+    overflow:hidden
+}
+.OnlineBar {
+    border-radius:inherit;
+    height:100%;
+    box-shadow:inset 0 -1px 0 rgba(0, 0, 0, 0.175)
+}
+/* Классы бара заполненности сервера */
+.online {
+    background:#2f9e35
+}
+.offline {
+    background:#e83a2c
+}
+.loading {
+    background:#2393cd
+}
+.upderr {
+    background:#fdd01d
+}
+#CommonBar {
+    background:#5386e2
+}
+/* Сообщении о проблеме с сервером */
+.monTrouble {
+    color:#696969;
+    font-size:12px;
+    line-height:17px
+}
+.monTooBig {
+	top:-1px;
+    font-size:11px;
+	padding:0 !important
+}
+/* Общая статистика */
+#CommonOnline {
+    margin:25px 0 0;
+    font-size:13px;
+    text-align:center
+}
+#CommonOnline p {
+	position:relative;
+    margin:1.5px 0;
+    padding:2.5px 0;
+	height:15px
+}
+/* Точки загрузки данных */
+.Ellipsis  {
+	position:relative;
+	display:inline-block;
+	text-align:center;
+	width:15px;
+	height:15px;
+	top:-2.5px;
+	padding-right:5px;
+	font-size:12px;
+	letter-spacing:1px;
+	font-weight:bold;
+	color:#777
+}
+/* Все, что касается тултипов. Не нужны? - удаляй все ниже */
+.Tooltipped {
+	cursor:help
+}
+.Tooltip {
+	position:absolute;
+	padding:2px 4px;
+	background:rgba(66,66,66,0.9);
+	border-radius:0.2em;
+	color:#fff;
+	font-size:12px;
+	line-height:14px;
+	height:14px;
+	width:auto;
+	box-shadow:inset 0 -1px 0 rgba(0, 0, 0, 0.175)
+}
+.Tooltip::after {
+	content:''; 
+	position:absolute;
+	border:4px solid rgba(0,0,0,0)	
+}
+.Tooltip .Ellipsis  {
+	padding:0;
+	color:#bbb
+}
+.ToolFix {
+	position:relative;
+	padding:2px 4px;
+	background:rgba(66,66,66,0.9);
+	border-radius:inherit;
+	box-shadow:inset 0 -1px 0 rgba(0, 0, 0, 0.175);
+	text-align:center
+}
+/* Расположение тултипов по направлениям */
+.BotTool {
+	bottom:-22px;
+	left:0;
+	width:100%;
+	padding:0 0;
+	background:rgba(0,0,0,0);
+	text-align:center;
+	box-shadow:none
+}
+.BotTool::after {
+	top:-10px;
+	left:calc(50% - 3px);
+	border-bottom:4px solid rgba(66,66,66,0.9)
+}
+.TopTool {
+	top:-20px;
+	left:0;
+	width:100%;
+	padding:0 0;
+	background:rgba(0,0,0,0);
+	text-align:center;
+	box-shadow:none
+}
+.TopTool::after {
+	bottom: -9.5px;
+	left:calc(50% - 3px);
+	border-top:4px solid rgba(66,66,66,0.9)
+}
+.LeftTool {
+	top:-2px;
+	left:100%
+}
+.LeftTool::after {
+	top:5px;
+	left:-8px;
+	border-right:4px solid rgba(66,66,66,0.9)
+}
+.RightTool{
+	top:-2px;
+	right:100%
+}
+.RightTool::after {
+	top:5px;
+	right:-8px;
+	border-left:4px solid rgba(66,66,66,0.9)
+}
