@@ -1,6 +1,7 @@
 <?php
 
-ob_end_clean();
+if (ob_get_contents())// Спасибо @Artmoneyse
+	ob_end_clean();
 header('Content-Type: application/json');// Вывод для браузера в формате json
 header('Access-Control-Allow-Origin: *');// Костыль для JS
 ignore_user_abort(true);// Продолжаем работу после обрыва
