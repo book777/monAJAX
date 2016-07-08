@@ -1,5 +1,5 @@
 <?php
-	require 'config.php';
+require 'config.php';
 
 function tplRead($name) {
 	return str_replace(array('{', '}', "\r", "\n"), array('"+', '+"', '', ''), file_get_contents('template/'.$name));
@@ -8,11 +8,12 @@ function tplRead($name) {
 ob_start();// Включаем буфер
 ?>
 <meta charset='utf-8'>
+<link rel="stylesheet" type="text/css" href="./template/monStyle.css">
 <script src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js' type='text/javascript'></script>
-<link rel=stylesheet href='<?=$config['dir']?>template/monStyle.css' type='text/css'>
+<link rel=stylesheet href='<?php echo $config['dir']?>template/monStyle.css' type='text/css'>
 <script type='text/javascript'>
 var Monitoring = {
-    servers: [<? foreach($servers as $server) echo '{name:"'.$server['name'].'"},'?>],
+    servers: [<?php foreach($servers as $server) echo '{name:"'.$server['name'].'"},'?>],
     createMon: function(){ // Создание основы мониторинга
 		var newHTML='',servers=this.servers,server,srvOnlStr,onBar,version,pingTime,fullOnStr,fullOnBar,todRec,onlRec,timeTodRec,timeRec;
 		srvOnlStr = '<span class=JSSrvString>.</span>';
@@ -27,16 +28,16 @@ var Monitoring = {
 		fullOnBar = '<div class=OnlineBar id=CommonBar style="width:100%"></div>';
 		for(var i=0, len=servers.length; i<len; i++){// Шаблон каждого сервера
 			server = servers[i]['name'];
-			newHTML += "<?=tplRead('server.tpl')?>"
+			newHTML += "<?php echo tplRead('server.tpl')?>"
 		};
-		newHTML += "<?=tplRead('common.tpl')?>";// Шаблон общего онлайна
+		newHTML += "<?php echo tplRead('common.tpl')?>";// Шаблон общего онлайна
 		$('#Monitoring').html(newHTML);// Записываем получившуюся основу
 		delete newHTML
 	},
 	updateMon: function(){
 		var servers=this.servers,
 			i,len=servers.length,
-			smoothTime=<?=($config['smoothBar']) ? 1200 : 0?>,
+			smoothTime=<?php echo ($config['smoothBar']) ? 1200 : 0?>,
 			ellipsis='<span class=Ellipsis>.</span>',
 			maxErrLen=14, 
 			// Переменные одного сервера
@@ -55,7 +56,7 @@ var Monitoring = {
 			timeTodRec,// Время установления рекорда этого дня
 			timeRec;// Время установления абсолютного рекорда
 		$.ajax({
-			url:'<?=$config['dir'].($config['tphp']?'ajax.php':'cache.json')?>',
+			url:'<?php echo $config['dir'].($config['json_mode']?'ajax.php':'ajax.json')?>',
             beforeSend: function(){// Перед попыткой получения данных
 				$('#Monitoring .OnlineBar').removeClass('online offline upderr');
                 $('#Monitoring .OneServer').each(function(){
@@ -94,14 +95,14 @@ var Monitoring = {
             error: function(){// Не получилось соединиться с веб-сервером
 				for(i=0; i<len; i++){
 					statusClass[i] = 'upderr';
-					srvOnlStr[i] = '<span class=monTrouble><?=$config['sErr']?></span>';
+					srvOnlStr[i] = '<span class=monTrouble><?php echo $config['sErr']?></span>';
 					pingTime[i] = version[i] = '';
 					onBar[i] = 100
 				};
 
-                fullOnStr = '<span class=monTrouble><?=$config['sErr']?></span>';
+                fullOnStr = '<span class=monTrouble><?php echo $config['sErr']?></span>';
 				fullOnBar = 100;
-				todRec = onlRec = timeRec = timeTodRec = '<?=$config['sErr']?>'
+				todRec = onlRec = timeRec = timeTodRec = '<?php echo $config['sErr']?>'
             },
             complete: function(){// После получения данных и их парсинга вносим в мониторинг
                 setTimeout(function(){
@@ -131,7 +132,7 @@ $(document).ready(function(){
     Monitoring.createMon();Monitoring.updateMon();
 	setInterval(function(){// Период обновления
 		Monitoring.updateMon()
-	}, <?=($config['timecache']*1000)?>);
+	}, <?php echo ($config['timecache']*1000)?>);
 	
 	// Периодичность точек загрузки данных
 	var dot_txt=[],dot_i=0;
