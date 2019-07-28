@@ -1,0 +1,8 @@
+RewriteBase /
+
+php_flag log_errors on 
+php_value error_reporting -1
+php_value error_log ./protect/error_log.txt
+php_flag html_errors off
+php_flag ignore_repeated_errors on
+php_flag ignore_repeated_source on

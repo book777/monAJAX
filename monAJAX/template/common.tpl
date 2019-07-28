@@ -8,10 +8,14 @@
 	</div>
 	<p class=Tooltipped>
 		Суточный рекорд: {todRec}
-		<span class='Tooltip TopTool' style='display:none'><span class=ToolFix style='box-shadow:none'>{timeTodRec}</span></span>
+		<span class='Tooltip TopTool' style='display:none'>
+			<span class=ToolFix style='box-shadow:none'>{timeTodRec}</span>
+		</span>
 	</p>
 	<p class=Tooltipped>
 		<span>Абсолютный рекорд: {onlRec}</span>
-		<span class='Tooltip BotTool' style='display:none'><span class=ToolFix>{timeRec}</span></span>
+		<span class='Tooltip BotTool' style='display:none'>
+			<span class=ToolFix>{timeRec}</span>
+		</span>
 	</p>
 </div>

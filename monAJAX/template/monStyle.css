@@ -1,4 +1,4 @@
-#Monitoring {
+#monAJAX {
     display:block;
     position:relative;
     /*background:#fff;*/
@@ -10,6 +10,7 @@
     padding:1px 0 25px;
     width:215px
 }
+
 /* Стили для каждого сервера */
 .OneServer {
     margin:21px auto
@@ -42,6 +43,7 @@
     height:100%;
     box-shadow:inset 0 -1px 0 rgba(0, 0, 0, 0.175)
 }
+
 /* Классы бара заполненности сервера */
 .online {
     background:#2f9e35
@@ -58,6 +60,7 @@
 #CommonBar {
     background:#5386e2
 }
+
 /* Сообщении о проблеме с сервером */
 .monTrouble {
     color:#696969;
@@ -69,6 +72,7 @@
     font-size:11px;
 	padding:0 !important
 }
+
 /* Общая статистика */
 #CommonOnline {
     margin:25px 0 0;
@@ -81,6 +85,7 @@
     padding:2.5px 0;
 	height:15px
 }
+
 /* Точки загрузки данных */
 .Ellipsis  {
 	position:relative;
@@ -95,11 +100,13 @@
 	font-weight:bold;
 	color:#777
 }
+
 /* Все, что касается тултипов. Не нужны? - удаляй все ниже */
 .Tooltipped {
 	cursor:help
 }
 .Tooltip {
+    overflow: hidden;
 	position:absolute;
 	padding:2px 4px;
 	background:rgba(66,66,66,0.9);
@@ -128,6 +135,7 @@
 	box-shadow:inset 0 -1px 0 rgba(0, 0, 0, 0.175);
 	text-align:center
 }
+
 /* Расположение тултипов по направлениям */
 .BotTool {
 	bottom:-22px;
