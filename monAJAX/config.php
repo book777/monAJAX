@@ -20,7 +20,7 @@ $config = array
 	'timeout' => 2, // Максимально время на ожидание ответа сервера майнкрафт
 	'smoothBar' => true, // Плавное появление полосы
 	'sErr' => 'Ошибка..', // Ответит браузер, если не сможет считать кэш
-	'dir' => 'http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'/', // Путь к скрипту (лучше не менять)
+    'dir' => '//' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/', // Путь к скрипту (лучше не менять)
 	'debug' => false // Отладка в случае проблем https://github.com/book777/monAJAX/issues
 );
 
