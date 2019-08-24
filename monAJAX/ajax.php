@@ -167,7 +167,7 @@ class MinecraftServer
         stream_set_blocking($this->socket, true);
         $Challenge = $this->GetChallenge();
         $data = $this->writedata(self::STATISTIC, $Challenge . pack('c*', 0x00, 0x00, 0x00, 0x00));
-        if (!$data)
+        if (!$data || $data['status'] != null)
             return $this->getp($address, $timeout);// Пробуем получить данные обычным способом
         fclose($this->socket);
         $data = substr($data, 11);
