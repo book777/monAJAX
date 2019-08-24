@@ -9,7 +9,7 @@ ob_start();// Включаем буфер
 ?>
 <meta charset='utf-8'>
 <link rel="stylesheet" type="text/css" href="./template/monStyle.css">
-<script src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js' type='text/javascript'></script>
+<script src='//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js' type='text/javascript'></script>
 <link rel=stylesheet href='<?php echo $config['dir']?>template/monStyle.css' type='text/css'>
 <script type='text/javascript'>
 var Monitoring = {
@@ -157,5 +157,5 @@ $(document).ready(function(){
 
 	<div id=Monitoring></div>
 <?php
-if(!file_put_contents($config['template'], ob_get_contents())) die('Не удалось создать шаблон (проверьте \'template\' в конфиге)');// Сохраняем вывод в файл из буфера
+if (!file_put_contents($config['template'], ob_get_contents())) die('Не удалось создать шаблон (измените \'template\' в конфиге)');// Сохраняем вывод в файл из буфера
 ?>

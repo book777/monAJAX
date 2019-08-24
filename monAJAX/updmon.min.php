@@ -9,7 +9,7 @@ function tplRead($name) {return str_replace(array('{', '}', "\r", "\n"), array('
 ob_start();
 ?>
 <meta charset='utf-8'>
-<script src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js' type='text/javascript'></script>
+<script src='//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js' type='text/javascript'></script>
 <link rel=stylesheet href='<?=$config['dir']?>template/monStyle.css' type='text/css'>
 <script type='text/javascript'>
 var Monitoring = {
@@ -28,12 +28,12 @@ var Monitoring = {
 $(document).ready(function(){
     Monitoring.createMon();Monitoring.updateMon();
 	setInterval(function(){Monitoring.updateMon()},<?=($config['timecache']*1000)?>);
-	
+
 	var dot_txt=[],dot_i=0;
 	dot_txt[1]='.';dot_txt[2]='..';dot_txt[3]='...';
 	setInterval(function(){dot_i<3 ? dot_i++ : dot_i=1;$('#Monitoring .Ellipsis').html(dot_txt[dot_i])}, 165);
-	
-	$('#Monitoring .Tooltipped').each(function(){
+
+    $('#Monitoring .Tooltipped').each(function(){
 		$(this).mouseenter(function(){if($(this).find('.Tooltip span').html() != 'ping:&nbsp;' && $(this).find('.Tooltip span').html() != '')$(this).find('.Tooltip').fadeIn({duration:75,easing:'swing',queue:false})});
 		$(this).mouseleave(function() {$(this).find('.Tooltip').fadeOut({duration:75,easing:'swing',queue:false})})
 	})
@@ -41,4 +41,4 @@ $(document).ready(function(){
 </script>
 
 	<div id=Monitoring></div>
-<?php if(!file_put_contents($config['template'], ob_get_contents()))die('Не удалось создать шаблон (проверьте \'template\' в конфиге)');?>
+<?php if (!file_put_contents($config['template'], ob_get_contents())) die('Не удалось создать шаблон (измените \'template\' в конфиге)'); ?>

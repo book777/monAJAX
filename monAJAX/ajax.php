@@ -32,7 +32,8 @@ if ($_SERVER['REQUEST_TIME'] - 15 > @filectime('work.temp'))// Удаляем, �
     @unlink('work.temp');
 if (file_exists('work.temp'))// Проверка однопоточности
     exit;
-file_put_contents('work.temp', '');// При частых запросах к скрипту может пропасть статистка. Это решение сильно сокращает возможность
+// При частых запросах к скрипту может пропасть статистка. Это решение сильно сокращает возможность
+file_put_contents('work.temp', '');
 
 // Начало работы с серверами Minecraft
 $temp = new MinecraftServer();
@@ -156,6 +157,7 @@ class MinecraftServer
     function getq($address, $timeout = 3)
     {// Получение данных через query
         $thetime = microtime(true);
+
         $this->socket = @fsockopen('udp://' . $address, 25565, $ErrNo, $ErrStr, $timeout);
         $info['ping'] = round((microtime(true) - $thetime) * 1000);
         if ($this->socket === false)
@@ -163,19 +165,24 @@ class MinecraftServer
                 'status' => 'Выключен',
                 'address' => $address
             );
+
         stream_set_timeout($this->socket, $timeout);
         stream_set_blocking($this->socket, true);
         $Challenge = $this->GetChallenge();
-        $data = $this->writedata(self::STATISTIC, $Challenge . pack('c*', 0x00, 0x00, 0x00, 0x00));
-        if (!$data || $data['status'] != null)
-            return $this->getp($address, $timeout);// Пробуем получить данные обычным способом
+        $data = $this->writedata(self::STATISTIC,
+            $Challenge . pack('c*', 0x00, 0x00, 0x00, 0x00));
         fclose($this->socket);
-        $data = substr($data, 11);
+
+        if ($data['status'] != null)
+            return $this->getp($address, $timeout);// Пробуем получить данные обычным способом
+
+        $data = substr($data['data'], 11);
         $data = explode("\x00\x00\x01player_\x00\x00", $data);
         if (count($data) !== 2)
             return array
             (
-                'status' => 'Хостинг не поддерживает такую дешифрацию',// Для решения проблемы нужны тексты на таком хостинге - vk.me/nikolia0612
+                // Для решения проблемы нужны тесты на таком хостинге - https://github.com/book777/monAJAX/issues
+                'status' => 'Хостинг не поддерживает такую дешифрацию',
                 'address' => $address
             );
         $info['names'] = explode("\x00", substr($data[1], 0, -2));
@@ -218,7 +225,8 @@ class MinecraftServer
             'slots' => intval($info['slots']),
             'percent' => @floor(($info['online'] / $info['slots']) * 100)
         );
-        $info['motd'] = filter_var($info['motd'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);// Уберет неизветные символы (без этого может !json_encode())
+        // Уберет неизветные символы (без этого может !json_encode())
+        $info['motd'] = filter_var($info['motd'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
         return $info;
     }
 
@@ -236,8 +244,13 @@ class MinecraftServer
                 'status' => 'Не удалось прочитать ответ'
             );
         if (strlen($data) < 5 || $data[0] != $command[2])
-            return false;
-        return substr($data, 5);
+            return array(
+                'status' => 'Не поддерживаемый ответ сервера'
+            );
+        return array(
+            'status' => null,
+            'data' => substr($data, 5)
+        );
     }
 
     private function motd($text)
@@ -252,10 +265,10 @@ class MinecraftServer
     private function GetChallenge()
     {
         $data = $this->writedata(self :: HANDSHAKE);
-        if ($data === false)
+        if ($data['status'] != null)
             return array(
-                'status' => 'failed to receive challenge'
+                'status' => 'Не удалось плдтвердить соединение'
             );
-        return pack('N', $data);
+        return pack('N', $data['data']);
     }
 }
